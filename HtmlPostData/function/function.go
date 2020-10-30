@@ -2,7 +2,6 @@ package function
 
 import (
 	"database/sql"
-	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -33,58 +32,69 @@ func RouteSubmitPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer db.Close()
-
 	if r.Method == "POST" {
+
+		var FirstName = r.FormValue("firstname")
+		var LastName = r.Form.Get("lastname")
+		var Title = r.FormValue("Title")
+		var TitleOfCourtesy = r.FormValue("TitleOfCourtesy")
+		var BirthDate = r.FormValue("BirthDate")
+		var HireDate = r.FormValue("HireDate")
+		var Address = r.FormValue("Address")
+		var City = r.FormValue("City")
+		var Region = r.FormValue("Region")
+		var PostalCode = r.FormValue("PostalCode")
+		var Country = r.FormValue("Country")
+		var HomePhone = r.FormValue("HomePhone")
+		var Extension = r.FormValue("Extension")
+		Photo := r.FormValue("Photo")
+		Notes := r.FormValue("Notes")
+		ReportsTo := r.FormValue("ReportsTo")
+		ProvinceName := r.FormValue("ProvinceName")
+
+		stmt, err := db.Prepare("INSERT INTO employees VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+
+		_, err = stmt.Exec(LastName, FirstName, Title,
+			TitleOfCourtesy, BirthDate, HireDate, Address,
+			City, Region, PostalCode, Country, HomePhone, Extension,
+			Photo, Notes, ReportsTo, ProvinceName)
 
 		var tmpl = template.Must(template.New("result").ParseFiles("index.html"))
 
-		if err := r.ParseForm(); err != nil {
+		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
+		} else {
+			var data = map[string]string{"firstname": FirstName,
+				"lastname":        LastName,
+				"Title":           Title,
+				"TitleOfCourtesy": TitleOfCourtesy,
+				"BirthDate":       BirthDate,
+				"HireDate":        HireDate,
+				"Address":         Address,
+				"City":            City,
+				"Region":          Region,
+				"PostalCode":      PostalCode,
+				"Country":         Country,
+				"HomePhone":       HomePhone,
+				"Extension":       Extension,
+				"Photo":           Photo,
+				"Notes":           Notes,
+				"ReportsTo":       ReportsTo,
+				"ProvinceName":    ProvinceName}
+
+			if err := tmpl.Execute(w, data); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
 		}
+		if err := r.ParseForm(); err != nil {
 
-		var firstname = r.FormValue("firstname")
-		var lastname = r.Form.Get("lastname")
-
-		var data = map[string]string{"firstname": firstname, "lastname": lastname}
-
-		if err := tmpl.Execute(w, data); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
-
-		//tugas insertkan ke database ke table user
+		//
 
 		return
-	}
-	http.Error(w, "", http.StatusBadRequest)
 
-	if r.Method == "POST" {
-		EmployeeID := r.FormValue("EmployeeID")
-		LastName := r.FormValue("LastName")
-		FirstName := r.FormValue("FirstName")
-		Title := r.FormValue("Title")
-		TitleOfCoutesy := r.FormValue("TitleOfCourtesy")
-		BirthDate := r.FormValue("BirthDate")
-		HireDate := r.FormValue("HireDate")
-		Adress := r.FormValue("Address")
-		City := r.FormValue("City")
-		Region := r.FormValue("Region")
-		PostalCode := r.FormValue("PostalCode")
-		Country := r.FormValue("Country")
-		HomePhone := r.FormValue("HomePhone")
-		Extension := r.FormValue("Extension")
-		Photo := r.FormValue("Photo")
-		Notes := r.FormValue("Notes")
-
-		stmt, err := db.Prepare("INSERT INTO employees (EmployeeID,LastName,FirstName,Title,TitleOfCourtesy,BirthDate,HireDate,Address,City,Region,PostalCode,HomePhone,Extension,Photo,Notes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-
-		_, err = stmt.Exec(EmployeeID, LastName, FirstName, Title, TitleOfCoutesy, BirthDate, HireDate, Adress, City, Region, PostalCode, Country, HomePhone, Extension, Photo, Notes)
-		if err != nil {
-			fmt.Println(w, "Data Duplicate")
-		} else {
-			fmt.Println(w, "Data Created")
-		}
-
+		http.Error(w, "", http.StatusBadRequest)
 	}
 
 }

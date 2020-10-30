@@ -31,12 +31,7 @@
 					</div>
 					<div class="panel-body">
 						<form id="signupForm" method="post" class="form-horizontal" action="">
-							<div class="form-group">
-								<label class="col-sm-4 control-label" for="firstname">Employee ID</label>
-								<div class="col-sm-5">
-									<input type="text" class="form-control" id="EmployeeID" name="EmployeeID" placeholder="Employee ID" />
-								</div>
-							</div>
+					
 
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="lastname">Last name</label>
@@ -53,30 +48,30 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="title">Title</label>
+								<label class="col-sm-4 control-label" for="Title">Title</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="title" name="title" placeholder="Title" />
+									<input type="text" class="form-control" id="Title" name="Title" placeholder="Title" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="TitleOfCourtesy">Title Of Courtesy</label>
+								<label class="col-sm-4 control-label" for="titleofcourtesy">Title Of Courtesy</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="TitleOfCourtesy" name="TitleOfCourtesy" placeholder="TitleOfCourtesy" />
+									<input type="text" class="form-control" id="titleOfCourtesy" name="TitleOfCourtesy" placeholder="TitleOfCourtesy" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="TitleOfCourtesy">Birth Date</label>
+								<label class="col-sm-4 control-label" for="BirthDate">Birth Date</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="BirthDate" />
+									<input type="date" class="form-control" id="BirthDate" name="BirthDate" placeholder="BirthDate" />
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="HiteDate">Hire Date</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="HireDate" name="HireDate" placeholder="Hire Date" />
+									<input type="date" class="form-control" id="HireDate" name="HireDate" placeholder="Hire Date" />
 								</div>
 							</div>
 
@@ -151,6 +146,20 @@
 							</div>
 
 							<div class="form-group">
+								<label class="col-sm-4 control-label" for="ReportsTo">ReportsTo</label>
+								<div class="col-sm-5">
+									<input type="number" class="form-control" id="ReportsTo" name="ReportsTo" placeholder="ReportsTo" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="ProvinceName">ProvinceName</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" id="ProvinceName" name="ProvinceName" placeholder="ProvinceName" />
+								</div>
+							</div>
+
+							<div class="form-group">
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
 										<label>
@@ -182,11 +191,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Show Message</title>
+		<title>Show Message</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		  <script src="js/jquery-1.7.min.js" type="text/javascript"></script>  
+		  <script type="text/javascript" src="js/jquery.validate.js"></script>
+		  <script src="js/jquery-ui-custom.min.js" type="text/javascript"></script>
     </head>
-    <body>
-        <h1>Hello {{.firstname}}</h1>
-        <p>{{.lastname}}</p>
+    <bo>
+		<div class="container">
+			<div class="page-header">
+				<div class="alert alert-success" role="alert">
+					<h4 align="center">Success!</h4>
+				</div>
+			</div>
+		<div class="alert alert-info">
+		<label>Nama :</label> {{.firstname}} {{.lastname}}</br>
+        <label>Title :</label> {{.Title}}</br>
+        <label>TitleOfCourtesy :</label> {{.TitleOfCourtesy}}</br>
+        <label>BirthDate :</label> {{.BirthDate}}</br>
+        <label>HireDate :</label> {{.HireDate}}</br>
+        <label>Address :</label> {{.Address}}</br>
+        <label>City :</label> {{.City}}</br>
+        <label>Region :</label> {{.Region}}</br>
+        <label>PostalCode :</label> {{.PostalCode}}</br>
+        <label>Country :</label> {{.Country}}</br>
+        <label>HomePhone :</label> {{.HomePhone}}</br>
+        <label>Extension :</label> {{.Extension}}</br>
+        <label>Notes :</label> {{.Notes}}</br>
+        <label>ReportsTo :</label> {{.ReportsTo}}</br>
+        <label>ProvinceName :</label> {{.ProvinceName}}</br>
+
+		</div>
+		</div>
     </body>
 </html>
 {{end}}
