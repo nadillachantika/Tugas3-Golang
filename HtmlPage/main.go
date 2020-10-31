@@ -34,7 +34,9 @@ func Index(w http.ResponseWriter, r *http.Request) {
 				IFNULL(HomePhone,'') HomePhone ,
 				IFNULL(Extension,'') Extension,
 				IFNULL(Photo,'') Photo,
-				IFNULL(Notes,'') Notes
+				IFNULL(Notes,'') Notes,
+				IFNULL(ReportsTo,'') ReportsTo,
+				IFNULL(ProvinceName,'') ProvinceName
 				
 				
 			FROM employees ORDER BY EmployeeID`
@@ -52,7 +54,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		var employee cm.Employees
 		err := result.Scan(&employee.EmployeeID, &employee.LastName, &employee.FirstName, &employee.Title,
 			&employee.TitleOfCourtesy, &employee.BirthDate, &employee.HireDate, &employee.Address,
-			&employee.City, &employee.Region, &employee.PostalCode, &employee.Country, &employee.HomePhone, &employee.Extension, &employee.Photo, &employee.Notes)
+			&employee.City, &employee.Region, &employee.PostalCode, &employee.Country, &employee.HomePhone, &employee.Extension, &employee.Photo, &employee.Notes, &employee.ReportsTo, &employee.ProvinceName)
 
 		if err != nil {
 			panic(err.Error())

@@ -17,4 +17,6 @@ type Employees struct {
 	Extension       string `json:"Extension"`
 	Photo           string `json:"Photo"`
 	Notes           string `json:"Notes"`
+	ReportsTo       string `json:"ReportsTo"`
+	ProvinceName    string `json:"ProvinceName"`
 }
